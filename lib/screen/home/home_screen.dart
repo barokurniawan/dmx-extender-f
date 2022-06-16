@@ -10,9 +10,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<DropdownMenuItem<String>> _dropdownMenuItems = [];
-  List<String> _logs = [];
-  final double side_div = 50;
+  late List<DropdownMenuItem<String>> _dropdownMenuItems = [];
+  late List<String> _logs = [];
+  final double _sideDiv = 50;
+  final TextEditingController txtTotalRow = TextEditingController();
+  final TextEditingController txtCompCode = TextEditingController();
+  final TextEditingController txtBusDate = TextEditingController();
+  final TextEditingController txtPstDate = TextEditingController();
+  final TextEditingController txtSySource = TextEditingController();
+  final TextEditingController txtIntId = TextEditingController();
+  final TextEditingController txtUid = TextEditingController();
+  final TextEditingController txtUser = TextEditingController();
 
   @override
   void initState() {
@@ -65,36 +73,36 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const DmsTextField(labelText: "TOTALROW"),
-                        SizedBox(width: side_div),
-                        const DmsTextField(labelText: "COMP_CODE"),
+                        DmsTextField(labelText: "TOTALROW", ctrl: txtTotalRow),
+                        SizedBox(width: _sideDiv),
+                        DmsTextField(labelText: "COMP_CODE", ctrl: txtCompCode),
                       ],
                     ),
                     const SizedBox(height: 25),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const DmsTextField(labelText: "BUS_DATE"),
-                        SizedBox(width: side_div),
-                        const DmsTextField(labelText: "PST_DATE"),
+                        DmsTextField(labelText: "BUS_DATE", ctrl: txtBusDate),
+                        SizedBox(width: _sideDiv),
+                        DmsTextField(labelText: "PST_DATE", ctrl: txtPstDate),
                       ],
                     ),
                     const SizedBox(height: 25),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const DmsTextField(labelText: "SY_SOURCE"),
-                        SizedBox(width: side_div),
-                        const DmsTextField(labelText: "INT_ID"),
+                        DmsTextField(labelText: "SY_SOURCE", ctrl: txtSySource),
+                        SizedBox(width: _sideDiv),
+                        DmsTextField(labelText: "INT_ID", ctrl: txtIntId),
                       ],
                     ),
                     const SizedBox(height: 25),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const DmsTextField(labelText: "UID"),
-                        SizedBox(width: side_div),
-                        const DmsTextField(labelText: "USER"),
+                        DmsTextField(labelText: "UID", ctrl: txtUid),
+                        SizedBox(width: _sideDiv),
+                        DmsTextField(labelText: "USER", ctrl: txtUser),
                       ],
                     ),
                     const SizedBox(height: 30),
@@ -106,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: DropdownButtonFormField(
                               items: _dropdownMenuItems, onChanged: (val) {}),
                         ),
-                        SizedBox(width: side_div),
+                        SizedBox(width: _sideDiv),
                         SizedBox(
                           width: 200,
                           child: DropdownButtonFormField(
