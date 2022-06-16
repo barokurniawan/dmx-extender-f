@@ -1,5 +1,6 @@
 import 'package:dms_extender_flutter/widget/dmstextfield.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, required this.title}) : super(key: key);
@@ -21,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController txtIntId = TextEditingController();
   final TextEditingController txtUid = TextEditingController();
   final TextEditingController txtUser = TextEditingController();
+  final ScrollController scrollControl = ScrollController();
 
   @override
   void initState() {
@@ -35,24 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     ];
 
-    _logs = [
-      'Log 1',
-      'Log 2',
-      'Log 3',
-      'Log 4',
-      'Log 5',
-      'Log 6',
-      'Log 7',
-      'Log 8',
-      'Log 9',
-      'Log 10',
-      'Log 11',
-      'Log 12',
-      'Log 13',
-      'Log 14',
-      'Log 15',
-      'Log 16',
-    ];
     super.initState();
   }
 
@@ -118,17 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(
                           width: 200,
                           child: DropdownButtonFormField(
-                              items: const <DropdownMenuItem<String>>[
-                                DropdownMenuItem(
-                                  value: "DMS Jakarta",
-                                  child: Text('DMS Jakarta'),
-                                ),
-                                DropdownMenuItem(
-                                  value: "DMS Surabaya",
-                                  child: Text('DMS Surabaya'),
-                                ),
-                              ],
-                              onChanged: (val) {}),
+                              items: _dropdownMenuItems, onChanged: (val) {}),
                         ),
                       ],
                     ),
@@ -146,7 +120,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                   MaterialStateProperty.all(Colors.white),
                             ),
                             child: const Text('Get From DMS'),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                _logs.add('Get From DMS.. ');
+                                _logs.add(
+                                    'DMS Address http://localhost:8080/dms/');
+                                _logs.add('payload..');
+                                _logs.add(
+                                    "lorem imsum dolor sit amet contrelat para  asdakj kjdfhsdk heirudfs jshfur duksfhiur sdkjf mncvb djkjhkjfhs hseurhsdf");
+                              });
+
+                              Future.delayed(const Duration(seconds: 1))
+                                  .then((value) {
+                                scrollControl.jumpTo(
+                                    scrollControl.position.maxScrollExtent);
+                              });
+                            },
                           ),
                         ),
                       ),
@@ -159,9 +148,13 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Container(
                 color: const Color.fromARGB(255, 35, 33, 68),
                 child: ListView.builder(
+                  controller: scrollControl,
                   itemCount: _logs.length,
                   itemBuilder: (context, index) {
+                    var format = DateFormat.Hms();
                     return ListTile(
+                      subtitle: Text(format.format(DateTime.now()),
+                          style: const TextStyle(color: Colors.grey)),
                       title: Text(
                         _logs[index],
                         style: const TextStyle(color: Colors.white),
