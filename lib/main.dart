@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:dms_extender_flutter/controller/resultcontroller.dart';
 import 'package:dms_extender_flutter/screen/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:window_size/window_size.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,12 +23,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ResultController>(
+          create: (_) => ResultController(),
+        ),
+      ],
+      builder: (context, child) => MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const HomeScreen(title: 'Flutter Demo Home Page'),
       ),
-      home: const HomeScreen(title: 'Flutter Demo Home Page'),
     );
   }
 }

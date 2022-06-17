@@ -1,6 +1,11 @@
+import 'dart:developer';
+
+import 'package:dms_extender_flutter/controller/resultcontroller.dart';
 import 'package:dms_extender_flutter/form/formfetchreport.dart';
+import 'package:dms_extender_flutter/form/formfetchresult.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, required this.title}) : super(key: key);
@@ -13,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final ScrollController scrollControl = ScrollController();
   late List<DropdownMenuItem<String>> _dropdownMenuItems = [];
-  late List<String> _logs = [];
+  List<String> _logs = [];
 
   @override
   void initState() {
@@ -39,8 +44,18 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Row(
           children: [
             Expanded(
-              child: Center(
-                child: FormFetchReport(dropdownMenuItems: _dropdownMenuItems),
+              child: Consumer<ResultController>(
+                builder: (context, ctrl, child) => Container(
+                  margin: const EdgeInsets.only(top: 90),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(seconds: 1),
+                    child: ctrl.isResultState
+                        ? FormFetchResult()
+                        : FormFetchReport(
+                            dropdownMenuItems: _dropdownMenuItems,
+                          ),
+                  ),
+                ),
               ),
             ),
             Expanded(
